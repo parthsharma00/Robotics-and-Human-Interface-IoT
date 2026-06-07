@@ -1,45 +1,24 @@
-# 🎮 Robotics & Human Interface Lab
+# Robotics & Human-Interface Computer Vision Suite
 
-This repository explores the intersection of **Mechatronics** and **User Interaction**. It features projects that transform physical movement and environmental signals into digital visualizations and robotic actions.
+A comprehensive repository showcasing the evolution of Human-Computer Interaction (HCI) through Computer Vision, spanning advanced hand-gesture tracking spatial mice to real-time face-driven 3D coordinate transformations.
 
-## 🚀 Overview
-The projects here focus on **Feedback Loops**—how a machine "sees" its surroundings (Radar, Cam) and how a human "controls" the machine (IR, Sound, Gyro).
+## � Repository Structure & Technical Evolution
 
----
+### 1. Air Mouse Interface (`/air-mouse`)
+Demonstrates 3 progressively advanced implementations of standard webcam cursor control:
+- **`v1_mediapipe.py`:** Utilizes MediaPipe Hand Landmark tracking. Maps index finger coordinates to screen space and handles mouse click actions via continuous distance checks between the thumb and index fingertips.
+- **`v2_contour.py`:** An legacy approach leveraging classical image processing. Tracks localized color/intensity contours to guide the OS cursor without deep landmark models.
+- **`v3_cvzone_drag.py`:** A polished interactive implementation using `cvzone` tracking UI to seamlessly manipulate transparent interactive canvas components in real time.
 
-## 🛠️ Included Projects
+### 2. Real-Time Face-to-3D Coordinate Control (`/face-to-3d-control`)
+Implements real-time spatial manipulation of 3D objects using live facial tracking data, mapped across 3 separate engines:
+- **`open3d_version.py`:** Processes live facial vectors to rotate a 3D bounding frame within a low-overhead Open3D point-cloud/mesh environment.
+- **`pygame_version.py`:** An iterative version utilizing mathematical perspective projections to translate face position vectors into a rendered interactive Pygame 3D viewport.
+- **`blender_version.py`:** Leverages Blender's native `bpy` API engine, using live external video frames to dynamically rotate internal 3D assets.
 
-### 1. 🛰️ Ultrasonic Radar Visualization
-* **What it does:** Scans the environment using a rotating sonar. Objects are visualized on a screen as a green sweep that turns red when an obstacle is detected within range.
-* **Key Components:** HC-SR04 Ultrasonic Sensor, Servo Motor, Processing/OLED.
-* **Use Case:** Proximity awareness for autonomous vehicles.
+### 3. Computer Vision Utilities (`/computer-vision-tools`)
+- **`face_detector.py`:** Classical Haar Cascade spatial tracking that performs face region isolation.
+- **`image_filters_gui.py`:** A comprehensive Tkinter UI pipeline providing real-time CV parameter adjustments (HSV threshold limits, Gaussian blurring, Canny Edge tuning, Dilation, and Erosion matrix kernels).
 
-### 2. 📐 3D Gyroscopic Orientation (MPU6050)
-* **What it does:** Tracks 6-axis movement (accelerometer + gyro) to tilt a digital 3D model in real-time as the physical hardware is moved.
-* **Key Components:** MPU6050 IMU, Complementary Filtering.
-* **Use Case:** Flight stabilization and motion-capture input.
-
-### 3. 📹 ESP32-Cam Wireless Node
-* **What it does:** Hosts a local web server that streams live video over Wi-Fi, accessible from any browser on the same network.
-* **Key Components:** ESP32-Cam Module, OV2640 Camera.
-* **Use Case:** Remote inspection and DIY security monitoring.
-
-### 4. 📶 Infrared (IR) Power Controller
-* **What it does:** Uses an IR receiver to decode signals from a remote control, allowing a user to toggle high-power motors via a dual-relay module.
-* **Key Components:** TSOP IR Receiver, 2-Channel Relay Module.
-* **Use Case:** Universal remote control for home appliances.
-
-### 5. 👏 Acoustic Trigger (Sound Sensor)
-* **What it does:** Listens for specific sound thresholds (like a clap) to trigger an LED or actuator.
-* **Key Components:** High-sensitivity Sound Microphone Module.
-* **Use Case:** Hands-free lighting control and sound-activated security.
-
----
-
-## 📂 Project Structure
-- `/Radar-Scanner` -> Includes both the Arduino code and the Visualization script.
-- `/Gyro-3D-Model` -> Logic for translating raw IMU data into 3D coordinates.
-- `/Wireless-Cam` -> Web server configuration and Wi-Fi credentials setup.
-
----
-*Focused on the development of intuitive Human-Machine Interfaces (HMI).*
+## 🛠️ Prerequisites & Core Toolkits
+- OpenCV, MediaPipe, `cvzone`, Open3D, Pygame, Blender `bpy`, Tkinter
