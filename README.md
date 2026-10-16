@@ -2,7 +2,7 @@
 
 A comprehensive repository showcasing the evolution of Human-Computer Interaction (HCI) through Computer Vision, spanning advanced hand-gesture tracking spatial mice to real-time face-driven 3D coordinate transformations.
 
-## � Repository Structure & Technical Evolution
+## 🗂️ Repository Structure & Technical Evolution
 
 ### 1. Air Mouse Interface (`/air-mouse`)
 Demonstrates 3 progressively advanced implementations of standard webcam cursor control:
@@ -27,16 +27,14 @@ Ultrasonic emergency-stop logic prevents collisions in both modes.
 - 30+ test runs with zero crashes. Sub-1 second Bluetooth control latency.
 
 ### 5. MPU6050 3D Orientation System (`/mpu6050plane`)
-Real-time 6-axis gyroscope data mapped to a live 3D plane visualisation on-screen.
-Handheld sensor mirrors a digital model in real time.
-- Hardware: MPU6050, Arduino
-- Stack: Python, matplotlib/OpenGL visualisation
+Real-time roll / pitch / yaw from a 6-axis IMU, fused with a **complementary filter** (98% gyro, 2% accelerometer) to cancel gyro drift, then streamed to a PC as compact binary packets at 921,600 baud so a 3D plane model can mirror the handheld sensor with minimal lag.
+- Hardware: ESP32, MPU6050 (I²C at 400 kHz)
+- Stack: Arduino C++ (the PC-side visualiser isn't included yet)
 
 ### 6. Radar System (`/Radar system`)
-Ultrasonic radar that sweeps a servo motor and plots detected objects on a 
-Processing/Python radar display in real time.
-- Hardware: Arduino, HC-SR04, servo motor
-- Stack: Arduino C++, Processing/Python serial
+Ultrasonic radar that sweeps a servo and draws detected objects as a live radar sweep on a 1.8" TFT screen, also logging angle and distance over serial.
+- Hardware: Arduino, HC-SR04, servo motor, ST7735 128×160 TFT
+- Stack: Arduino C++, Adafruit GFX / ST7735
 
 ### 7. LoRa Wireless Module (`/lora module`)
 Long-range wireless communication system using LoRa SX1276 modules.
@@ -67,6 +65,34 @@ Triggers alerts on detected physical disturbance.
 - Hardware: Arduino, SW-420 vibration sensor
 - Stack: Arduino C++
 
-## 🛠️ Prerequisites & Core Toolkits
-- OpenCV, MediaPipe, `cvzone`, Open3D, Pygame, Blender `bpy`, Tkinter
+## 🛠️ Tech Stack
+Python · OpenCV · MediaPipe · cvzone · Open3D · Pygame · Blender `bpy` · Tkinter · PyAutoGUI · Arduino C++ · ESP32 · LoRa
 
+## 🚀 Running the projects
+
+### Computer-vision projects (Python)
+Requires Python 3.9+ and a webcam.
+```bash
+git clone https://github.com/parthsharma00/Robotics-and-Human-Interface-IoT.git
+cd Robotics-and-Human-Interface-IoT
+pip install opencv-python mediapipe cvzone pyautogui numpy open3d pygame pillow
+
+python air-mouse/v1_mediapipe.py            # move the cursor with your index finger, pinch to click
+python face-to-3d-control/open3d_version.py # rotate a 3D model with your head
+python computer-vision-tools/image_filters_gui.py
+```
+`face-to-3d-control/blender_version.py` runs inside Blender: open the **Scripting** tab, load the file, and press **Run Script** (Blender's bundled Python needs `opencv-python` installed into it).
+
+> On macOS, give your terminal Camera and Accessibility permissions so PyAutoGUI can move the cursor.
+
+### Hardware projects (Arduino / ESP32)
+1. Install the [Arduino IDE](https://www.arduino.cc/en/software). For the ESP32 projects, add the ESP32 board package (**Boards Manager → esp32**).
+2. Install libraries as needed: `IRremote`, `LoRa` (Sandeep Mistry), `MPU6050`, `Adafruit GFX`, `Adafruit ST7735`, `LiquidCrystal I2C`.
+3. For `wificamera/`, enter your own Wi-Fi name and password at the top of `wificamera.ino`, select **AI Thinker ESP32-CAM**, and open the IP address printed in the Serial Monitor.
+4. Open the sketch, select the board and port, then click **Upload**.
+
+> 📸 _Demo GIFs of the air mouse and face-to-3D control coming soon_ <!-- add docs/*.gif -->
+
+## 👤 Author
+**Parth Sharma**, Computer Science & Design at the Singapore University of Technology and Design (SUTD)
+[GitHub](https://github.com/parthsharma00) · [LinkedIn](https://www.linkedin.com/in/parth-sharmasutd) · parthsharma72007@gmail.com
